@@ -1,0 +1,31 @@
+NAME = fdf
+
+CC = cc
+CFLAGS = -Wall -Werror -Wextra -g -o fdf
+MIN = -L ./minilibx-linux -lmlx -Ilmlx -lXext -lX11 
+RM = @rm -f
+
+MINI_PATH = ./minilibx-linux
+
+SRC = lol.c
+OBJ = $(SRC:.c=.o)
+LM = -lm $(OBJ)
+
+$(NAME): $(OBJ)
+		 $(MAKE) -C $(MINI_PATH)
+		 $(CC) $(CFLAGS) $(LM) $(MIN)
+
+all:	$(NAME)
+
+clean: 
+		make clean -C $(MINI_PATH)
+		$(RM) $(OBJ)
+
+fclean: clean
+		$(RM) $(NAME)
+
+re: fclean all
+
+$(VERBOSE).SILENT:
+
+.PHONY: all clean fclean re
